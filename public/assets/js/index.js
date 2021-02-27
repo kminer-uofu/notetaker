@@ -1,3 +1,5 @@
+//const { JSON } = require("express");
+
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
@@ -8,19 +10,24 @@ const $noteList = $(".list-container .list-group");
 let activeNote = {};
 
 // A function for getting all notes from the db
-const getNotes = () => {
-  return $.ajax({
-    url: "/api/notes",
+const getNotes = () => 
+  fetch("/api/notes", {
     method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': 'application/json',
+    },
   });
-};
+
 
 // A function for saving a note to the db
 const saveNote = (note) => {
-  return $.ajax({
-    url: "/api/notes",
-    data: note,
+  fetch("/api/notes", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(note)
   });
 };
 
@@ -102,16 +109,20 @@ const handleRenderSaveBtn = function () {
 };
 
 // Render's the list of note titles
-const renderNoteList = (notes) => {
+const renderNoteList = async (notes) => {
+  let jsonnotes = await notes.json();
   $noteList.empty();
 
   const noteListItems = [];
 
   // Returns jquery object for li with given text and delete button
   // unless withDeleteButton argument is provided as false
-  const create$li = (text, withDeleteButton = true) => {
-    const $li = $("<li class='list-group-item'>");
-    const $span = $("<span>").text(text);
+  const createli = (text, withDeleteButton = true) => {
+    const liEl = document.createElement("li");
+    liEl.classList.add("list-listgroup-item");
+    const span = document.createElement("span");
+    span.innerText = text;
+    span.addEventListener("click", handleNoteView);
     $li.append($span);
 
     if (withDeleteButton) {
@@ -123,13 +134,14 @@ const renderNoteList = (notes) => {
     return $li;
   };
 
-  if (notes.length === 0) {
+  if (jsonnotes.length === 0) {
     noteListItems.push(create$li("No saved Notes", false));
   }
 
-  notes.forEach((note) => {
-    const $li = create$li(note.title).data(note);
-    noteListItems.push($li);
+  jsonnotes.forEach((note) => {
+    const li = createLi(note.title).data(note);
+    li.dataSet.note = JSON.stringify(note);
+    noteListItems.push(li);
   });
 
   $noteList.append(noteListItems);
