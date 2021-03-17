@@ -4,8 +4,6 @@ This application uses express and node to write, save, and delete notes from a J
 
 
 ## Example
-![Screen Shot 2021-03-16 at 11 29 39 PM](https://user-images.githubusercontent.com/70558063/111419768-aa549200-86af-11eb-9f27-ec60938d55a2.png)
-
 ![Screen Shot 2021-03-16 at 11 29 39 PM](https://user-images.githubusercontent.com/70558063/111419762-a759a180-86af-11eb-9aeb-3c1a998482fa.png)
 
 ---
