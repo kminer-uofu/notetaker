@@ -11,6 +11,6 @@ This application uses express and node to write, save, and delete notes from a J
 
 Video Demo: https://drive.google.com/file/d/10I2jX7kTDqn2lQJoCvOgJjkpWOjO7yzY/view
 
-Live App: https://kminer-uofu.github.io/notetaker/
+Live App: https://notetaker-kminer.herokuapp.com/
 
 Github Repository: https://github.com/kminer-uofu/notetaker
